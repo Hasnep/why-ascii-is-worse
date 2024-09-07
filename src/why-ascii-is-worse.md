@@ -12,10 +12,11 @@ Isn't ASCII worse than UTF-8?
 
 - **Simpler definition of a character:**
 
-  In a fixed-length encoding like ASCII, each character is encoded using the same amount of data, for ASCII each character uses one byte.
-  UTF-8 is a variable-length encoding, so a single character like the egg emoji (🥚) is encoded as four bytes.
-  UTF-8 also supports combining multiple codepoints into a single grapheme, where a codepoint is a single unit of data and a grapheme is a "unit of writing" and is what we normally mean when thinking of a Unicode "character".
-  For example, the combining diaeresis codepoint (◌̈) combines with the codepoint before it to create a single grapheme, like in the string "Röc" which contains 5 bytes, 4 codepoints and 3 graphemes.
+  When using UTF-8, the term "character" can be ambiguous, so "codepoints" and "graphemes" are used instead.
+  Codepoints are the smallest unit of UTF-8 data, and unlike ASCII, where each character is encoded using one byte, UTF-8 is a variable-length encoding, so a single codepoint like the egg emoji (🥚) is encoded as four bytes.
+  UTF-8 allows combining codepoints to form graphemes, which are the smallest units of meaning in a language.
+  For example, the combining diaeresis codepoint (`◌̈`) combines with the codepoint before it to create a single grapheme, like in the string "Röc" which contains 5 bytes, 4 codepoints and 3 graphemes.
+  The woman technologist: medium-dark skin tone emoji (`👩🏾‍💻`) is a single grapheme made of 15 bytes and four codepoints, the woman emoji (`👩`), the medium-dark skin tone modifier (`🏾`), a zero width joiner (`‍`) and the laptop emoji (`💻`).
   ASCII avoids all of this complexity by not supporting characters outside the ASCII range.
 
 - **Ability to index directly into an ASCII string:**
@@ -43,7 +44,7 @@ Isn't ASCII worse than UTF-8?
 
 ## Except for the control characters
 
-The first 32 ASCII characters are mostly non-printable characters like the "end of transmission block" character or the "bell" character which used to ring a physical bell on teleprinters.
+The first 32 ASCII characters are mostly non-printable characters like the "end of transmission block" character or the "bell" character (which used to ring a physical bell on teleprinters).
 The most commonly found control characters today are the "null" character which is used to terminate strings in languages like C, the "horizontal tab" character (`\t`) which is displayed as horizontal whitespace, the "line feed" character (`\n`) which starts a new line and the "carriage return" character (`\r`) which returns to the start of a line on UNIX systems and on Windows is used with the line feed character to separate lines of text (`\r\n`).
 All the control characters can appear in both UTF-8 and ASCII strings, and can undermine some of the benefits of ASCII mentioned earlier.
 For example, when rendering the ASCII string `abc␇␇␇` in the terminal, it will look like it contains three characters, but the extra ASCII bell characters bring the total length to six.
